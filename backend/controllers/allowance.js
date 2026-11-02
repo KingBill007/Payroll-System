@@ -1,4 +1,6 @@
 const calculateuserAllw = require('../utils/calculateUserAllowance')
+const calculateuserDeductions = require('../utils/calculateuserDeduction')
+
 const pool = require("../db");
 
 exports.addAllwType = async (req, res) => {
@@ -49,7 +51,7 @@ exports.assignGradeToAllw = async (req, res) => {
 exports.userAllowance = async (req, res) => {
     const userid = req.query.id
     try {
-        const userAllowance = await calculateuserAllw(userid)
+        const userAllowance = await calculateuserDeductions(userid)
 
         res.status(200).json({
             success: true,

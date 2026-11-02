@@ -9,11 +9,13 @@ app.use(morgan('tiny')); //log all API req in console
 const usersRouter = require('./routers/user')
 const salariesRouter = require('./routers/salary')
 const allowancesRouter = require('./routers/allowance')
+const deductionsRouter = require('./routers/deduction')
 
 const api = process.env.API_URL; //api variable
 app.use(api+'/users', usersRouter)
 app.use(api+'/salary', salariesRouter)
 app.use(api+'/allowance', allowancesRouter)
+app.use(api+'/deduction', deductionsRouter)
 
 const PORT = process.env.PORT || 3000;
 

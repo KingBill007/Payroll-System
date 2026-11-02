@@ -5,8 +5,6 @@ async function calculateuserAllw(userid) {
     const [user] = await pool.query(
         `
         select 
-            employees.first_name,
-            employees.last_name,
             employees.salaryGradeId,
             employees.notchId,
             salarygrade.name as salarygradeName
@@ -66,7 +64,7 @@ async function calculateuserAllw(userid) {
         } else if (calctype==="FIXED"){
             currentAllw = gradeAllowances.amount
         } else {
-            console.log('invalid allowancw type calculation!') //look at what to do here later
+            console.log('invalid allowance type calculation!') //look at what to do here later
             currentAllw = 0;
         }
         sumAllowance+=currentAllw; //increase the sum allowance with the current allowance
