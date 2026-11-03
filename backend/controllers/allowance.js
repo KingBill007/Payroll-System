@@ -1,5 +1,5 @@
 const calculateuserAllw = require('../utils/calculateUserAllowance')
-const calculateuserDeductions = require('../utils/calculateuserDeduction')
+const calculateuserDeductions = require('../utils/calculateUserDeduction')
 
 const pool = require("../db");
 
