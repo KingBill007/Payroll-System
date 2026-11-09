@@ -59,3 +59,48 @@ exports.updatePF = async (req, res) => {
         });
     }
 }
+exports.enrollEmployee = async (req, res) => {
+    const {employeeID, action} = req.body || {}
+    try {
+        if (action === 'enroll'){
+            await pool.query(
+                `
+                insert into enrolled_pf(
+                    employee_id
+                )
+                values(
+                    ?
+                )
+                `,[employeeID]
+            );
+            res.status(200).json({
+                success: true,
+                message: 'User sucessfully enrolled for provident fund'
+            });
+        } else if(action === 'deroll'){
+            await pool.query(
+                `
+                    delete from enrolled_pf
+                    where employee_id = ?
+                `,[employeeID]
+            );
+            res.status(200).json({
+                success: true,
+                message: 'User sucessfully delisted from provident fund'
+            });
+        }else {
+            res.json({
+            success: false,
+            message: 'No valid action'
+        });
+        }
+
+    } catch (error) {
+        console.error("Failed to enroll employee", error.message);
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}

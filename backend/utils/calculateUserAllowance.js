@@ -1,4 +1,6 @@
 const pool = require("../db");
+const getUserSalary = require('./getUserSalary')
+
 
 async function calculateuserAllw(userid) {
     //get users info with salary grade
@@ -43,11 +45,11 @@ async function calculateuserAllw(userid) {
     //console.log('allowancetypes:', allowancetypes)
 
     //get Notch amount / Actual Salary
-    const [getSalary] = await pool.query(
-        ` select amount from salarynotch where id = ?`,
-        [user[0].notchId]
-    );
-    const salary = Number(getSalary[0].amount);
+    // const [getSalary] = await pool.query(
+    //     ` select amount from salarynotch where id = ?`,
+    //     [user[0].notchId]
+    // );
+    const salary = await getUserSalary(userid,user[0].notchId)
     // console.log('salary:', salary)
 
     var sumAllowance = 0;

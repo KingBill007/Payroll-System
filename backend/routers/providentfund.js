@@ -6,5 +6,7 @@ const providentController = require('../controllers/providentfund');
 router.get("/display", providentController.getProvidentFund);
 //update current provident fund values
 router.put("/update", providentController.updatePF);
+//enroll an employee into provident fund 
+router.post("/enroll", providentController.enrollEmployee);
 
 module.exports = router;

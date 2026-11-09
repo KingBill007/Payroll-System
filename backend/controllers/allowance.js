@@ -1,6 +1,6 @@
 const calculateuserAllw = require('../utils/calculateUserAllowance')
 const calculateuserDeductions = require('../utils/calculateUserDeduction')
-
+const calculateusersPF = require('../utils/calculateUsersPF')
 const pool = require("../db");
 
 exports.addAllwType = async (req, res) => {
@@ -48,17 +48,17 @@ exports.assignGradeToAllw = async (req, res) => {
         });
     }
 }
-exports.userAllowance = async (req, res) => {
+exports.userAllowance = async (req, res) => { //for now calculate users PF 
     const userid = req.query.id
     try {
-        const userAllowance = await calculateuserDeductions(userid)
+        const result = await calculateusersPF()
 
         res.status(200).json({
             success: true,
-            message: userAllowance
+            message: result
         });
     } catch (error) {
-        console.error("Failed to assign allowance type to grade:", error.message);
+        console.error(error.message);
 
         res.status(500).json({
             success: false,
