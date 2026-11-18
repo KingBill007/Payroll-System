@@ -8,7 +8,7 @@ const allowanceController = require('../controllers/allowance');
 router.post("/add/allowancetype", allowanceController.addAllwType);
 //asign a grade to an allowance
 router.post("/add/gradeallowance", allowanceController.assignGradeToAllw);
-//calculate the allowance of a user
-router.get("/calculate/userallowance", allowanceController.userAllowance);
+// TEST API --- 
+router.get("/test", allowanceController.testController);
 
 module.exports = router;

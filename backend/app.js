@@ -12,6 +12,8 @@ const allowancesRouter = require('./routers/allowance')
 const deductionsRouter = require('./routers/deduction')
 const providentRouter = require('./routers/providentfund')
 const taxReliefRouter = require('./routers/taxrelief')
+const taxBracketsRouter = require('./routers/taxbracket')
+const payrollRouter = require('./routers/payroll')
 
 const api = process.env.API_URL; //api variable
 app.use(api+'/users', usersRouter)
@@ -20,6 +22,8 @@ app.use(api+'/allowance', allowancesRouter)
 app.use(api+'/deduction', deductionsRouter)
 app.use(api+'/providentfund', providentRouter)
 app.use(api+'/taxrelief', taxReliefRouter)
+app.use(api+'/taxbracket', taxBracketsRouter)
+app.use(api+'/payroll', payrollRouter)
 
 const PORT = process.env.PORT || 3000;
 

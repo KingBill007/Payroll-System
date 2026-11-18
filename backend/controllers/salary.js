@@ -15,11 +15,10 @@ exports.addSalaryGrade = async (req, res) => {
             message: result
         });
     } catch (error) {
-        console.error("Failed to add grade:", error.message);
 
         res.status(500).json({
             success: false,
-            message: "Failed to add grade"
+            message: error.message
         });
     }
 }

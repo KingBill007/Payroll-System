@@ -11,8 +11,9 @@ async function getUserTaxRelief(userid) {
         from assigned_tax_relief
         join tax_relief_categories
         on assigned_tax_relief.relief_category_id = tax_relief_categories.id
-        `
+        where employee_id = ?
+        `,[userid]
     )
-    return reliefDetails
+    return reliefDetails //remember later this should work with the year assigned to it
 }
 module.exports = getUserTaxRelief;

@@ -7,6 +7,10 @@ async function calculateuserAllw(userid) {
     const [user] = await pool.query(
         `
         select 
+            employees.id,
+            employees.first_name,
+            employees.last_name,
+            employees.email,
             employees.salaryGradeId,
             employees.notchId,
             salarygrade.name as salarygradeName
@@ -30,6 +34,11 @@ async function calculateuserAllw(userid) {
     );
     // console.log('gradeAllowances:', gradeAllowances)
     
+    // if the user doesnt have any grade Allowances return 0
+    if(gradeAllowances.length<1){
+        return 0;
+    }
+    
     //users allowance types ids in array form
     const allowancetypesids = gradeAllowances.map((item)=>item.allowance_type_id)
     // console.log('allowancetypesids:',allowancetypesids)
@@ -42,13 +51,8 @@ async function calculateuserAllw(userid) {
         where id in (?)
         `,[allowancetypesids]
     )
-    //console.log('allowancetypes:', allowancetypes)
+    // console.log('allowancetypes:', allowancetypes)
 
-    //get Notch amount / Actual Salary
-    // const [getSalary] = await pool.query(
-    //     ` select amount from salarynotch where id = ?`,
-    //     [user[0].notchId]
-    // );
     const salary = await getUserSalary(userid,user[0].notchId)
     // console.log('salary:', salary)
 
@@ -71,8 +75,15 @@ async function calculateuserAllw(userid) {
         }
         sumAllowance+=currentAllw; //increase the sum allowance with the current allowance
     }
-    console.log('total allowance:', sumAllowance)
-    return sumAllowance;
+    // console.log('total allowance:', sumAllowance)
+    const employee = {
+        id: user[0].id,
+        first_name: user[0].first_name,
+        last_name: user[0].last_name,
+        email: user[0].email,
+        allowance: sumAllowance
+    }
+    return employee;
 }
 
 module.exports = calculateuserAllw;

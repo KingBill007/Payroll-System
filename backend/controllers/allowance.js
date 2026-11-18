@@ -1,6 +1,11 @@
-const calculateuserAllw = require('../utils/calculateUserAllowance')
-const calculateuserDeductions = require('../utils/calculateUserDeduction')
-const calculateusersPF = require('../utils/calculateUsersPF')
+// const calculateuserAllw = require('../utils/calculateUserAllowance')
+// const calculateuserDeductions = require('../utils/calculateUserDeduction')
+// const calculateusersPF = require('../utils/calculateUserPF')
+// const calculateUserChargeableIncome = require('../utils/calculateUserChargeableIncome')
+// const getUserTaxRelief = require('../utils/getUserTaxRelief')
+// const calculateUserPAYE = require('../utils/calculateUserPAYE')
+// const calculateUserNetPay = require('../utils/calculateUserNetPAY')
+const runPayroll = require('../utils/runPAYROLL')
 const pool = require("../db");
 
 exports.addAllwType = async (req, res) => {
@@ -48,14 +53,16 @@ exports.assignGradeToAllw = async (req, res) => {
         });
     }
 }
-exports.userAllowance = async (req, res) => { //for now calculate users PF 
-    const userid = req.query.id
+//Test API (to test functions) --> Run payroll
+exports.testController = async (req, res) => { 
+    const userid = req.query.userid
     try {
-        const result = await calculateusersPF()
+        const result = await runPayroll()
 
         res.status(200).json({
             success: true,
-            message: result
+            message: `Run Payroll `,
+            value: result
         });
     } catch (error) {
         console.error(error.message);

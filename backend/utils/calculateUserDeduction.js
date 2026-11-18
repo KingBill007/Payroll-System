@@ -26,11 +26,11 @@ async function calculateuserDeductions(userid) {
         where id = ? 
         `,[usersGradeId]
     );
-    console.log('gradeDeductions:', gradeDeductions)
+    // console.log('gradeDeductions:', gradeDeductions)
     
     //save users deduction types ids in array form
     const deductiontypesids = gradeDeductions.map((item)=>item.deduction_type_id)
-    console.log('deductiontypesids:',deductiontypesids)
+    // console.log('deductiontypesids:',deductiontypesids)
 
     //get all users allowance types in the array
     const [deductiontypes] = await pool.query(
@@ -40,7 +40,7 @@ async function calculateuserDeductions(userid) {
         where id in (?)
         `,[deductiontypesids]
     )
-    console.log('deductiontypes:', deductiontypes)
+    // console.log('deductiontypes:', deductiontypes)
 
     //get Notch amount / Actual Salary
     const [getSalary] = await pool.query(
@@ -48,7 +48,7 @@ async function calculateuserDeductions(userid) {
         [user[0].notchId]
     );
     const salary = Number(getSalary[0].amount);
-    console.log('salary:', salary)
+    // console.log('salary:', salary)
 
     var sumDeductions = 0;
     for( x=0; x<deductiontypes.length; x++){
@@ -69,7 +69,7 @@ async function calculateuserDeductions(userid) {
         }
         sumDeductions+=currentDeduction; //increase the sum allowance with the current allowance
     }
-    console.log('total deductions:', sumDeductions)
+    // console.log('total deductions:', sumDeductions)
     return sumDeductions;
 }
 
