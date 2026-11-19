@@ -5,7 +5,7 @@ const calculateuserDeductions = require('./calculateUserDeduction')
 const calculateuserPF = require('./calculateUserPF')
 const getUserTaxRelief = require('./getUserTaxRelief')
 
-async function calculateUserChargeableIncome(userid) {
+async function calculateUserChargeableIncome(userid,period) {
     //Additions
     const salary = await getUserSalary(userid)    
     const user = await calculateUserAllowance(userid)
@@ -19,7 +19,7 @@ async function calculateUserChargeableIncome(userid) {
     const providentFund = await calculateuserPF(userid)
     const userprovidentFund = providentFund.employeePF
     
-    const taxRelief = await getUserTaxRelief(userid)
+    const taxRelief = await getUserTaxRelief(userid, period)
     const usertaxRelief = taxRelief.length > 0 ? Number(taxRelief[0].amount) : 0 //really have to work on the particular year later
 
     

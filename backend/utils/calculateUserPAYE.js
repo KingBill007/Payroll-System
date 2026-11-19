@@ -2,8 +2,8 @@ const pool = require("../db");
 const getchargeableIncome = require('./calculateUserChargeableIncome')
 const roundMoney = require('./roundMoney')
 
-async function calculateUserPAYE(userid) {
-    const chargeableIncome = await getchargeableIncome(userid)
+async function calculateUserPAYE(userid,period) {
+    const chargeableIncome = await getchargeableIncome(userid,period)
     const [taxBrackets] = await pool.query(
         `
         select * from tax_brackets

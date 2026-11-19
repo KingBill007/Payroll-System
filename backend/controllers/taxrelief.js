@@ -1,15 +1,15 @@
 const pool = require("../db");
 
 exports.addcategory = async (req, res) => {
-    const {name, countryCode, maxAmount} = req.body
+    const {name, countryCode, maxAmount, taxYear} = req.body
     try {
         const [rows] = await pool.query(
             `
             insert into tax_relief_categories(
-                name, country_code, max_amount
+                name, country_code, max_amount, tax_year
             )
-            values( ?, ?, ? )
-            `,[name, countryCode, maxAmount]
+            values( ?, ?, ?, ? )
+            `,[name, countryCode, maxAmount, taxYear]
         );
 
         res.status(200).json({
@@ -78,7 +78,7 @@ exports.assignUser = async (req, res) => {
         );
         res.status(200).json({
             success: true,
-            employees: saveAssignment
+            employees: 'Succesfully assigned user to tax relief category'
         });
     } catch (error) {
         console.error("Failed to assign user to relief category:", error.message);

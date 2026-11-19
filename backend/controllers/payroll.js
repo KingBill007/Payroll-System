@@ -28,8 +28,11 @@ exports.addPayrollPeriod = async (req, res) => {
 }
 //run payroll
 exports.RunPayroll = async (req, res) => {
+    //check the payroll period status to see if its been run before
+    //if its not run and change status to done
+    const periodId = req.params.periodId
     try{
-        const result = await runPayroll()
+        const result = await runPayroll(periodId)
         res.status(200).json({
             success: true,
             message: result

@@ -4,8 +4,8 @@ const roundMoney = require('./roundMoney')
 
 
 
-async function calculateUserNetPay(userid) {
-    const PAYE = await calculateUserPAYE(userid)
+async function calculateUserNetPay(userid,period) {
+    const PAYE = await calculateUserPAYE(userid,period)
     const grossEarnings = PAYE.grossEarnings
     const deductions = PAYE.deductions
     const userprovidentFund = PAYE.userprovidentFund
