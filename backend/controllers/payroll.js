@@ -33,6 +33,12 @@ exports.RunPayroll = async (req, res) => {
     const periodId = req.params.periodId
     try{
         const result = await runPayroll(periodId)
+        if (result.sucess === false){
+            return res.status(401).json({
+            success: false,
+            message: result.message
+        })
+        }
         res.status(200).json({
             success: true,
             message: result

@@ -16,6 +16,12 @@ async function runPayroll(periodId) {
         `,[periodId]
     )
     const period = perioddata[0]
+    if(period.status === 'Closed'){
+        return {
+            sucess: false,
+            message: 'Payroll period has already been run'
+        }
+    }
     // console.log('period:', period)
 
     let sumArray = {
@@ -72,7 +78,7 @@ async function runPayroll(periodId) {
 
     // console.log(savePayroll)
     // console.log(usersDetails[0],usersDetails[1])
-    
+
     //insert every users data to payroll_records
     const payrollRunId = savePayroll.insertId
     if(usersDetails.length>0){
@@ -93,6 +99,14 @@ async function runPayroll(periodId) {
             )
         }
     }
+
+    await pool.query(
+        `
+            update payroll_periods 
+            set status = ?
+            where id = ?
+        `,['Closed', periodId]
+    )
 
     return sumArray
 }
